@@ -100,14 +100,13 @@ data.frame(`Initial prob.` = tna_model$inits[[1]]) |>
 <div id="jgnrpjptko" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
+<thead>
+<tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Interaction">Interaction</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Initial.prob.">Initial.prob.</th>
     </tr>
-  </thead>
-  <tbody class="gt_table_body">
+</thead>
+<tbody class="gt_table_body">
     <tr><td headers="Interaction" class="gt_row gt_left">Solution</td>
 <td headers="Initial.prob." class="gt_row gt_right">56.00%</td></tr>
     <tr><td headers="Interaction" class="gt_row gt_left">Moderation</td>
