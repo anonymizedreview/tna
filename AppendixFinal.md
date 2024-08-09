@@ -17,7 +17,7 @@ library(seqHMM)
 library(tidyr)
 library(NetworkToolbox)
 library(tibble)
-library(gt)
+library(knitr)
 library(patchwork)
 library(reshape2)
 library(networktools)
@@ -94,93 +94,32 @@ Initial probabilities
 ``` r
 data.frame(`Initial prob.` = tna_model$inits[[1]]) |> 
   rownames_to_column("Interaction") |> arrange(desc(`Initial.prob.`)) |> 
-  gt() |> fmt_percent()
+  kable()
 ```
 
-<div id="jgnrpjptko" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Interaction">Interaction</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Initial.prob.">Initial.prob.</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body">
-    <tr><td headers="Interaction" class="gt_row gt_left">Solution</td>
-<td headers="Initial.prob." class="gt_row gt_right">56.00%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Moderation</td>
-<td headers="Initial.prob." class="gt_row gt_right">26.60%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Reasoning</td>
-<td headers="Initial.prob." class="gt_row gt_right">17.40%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Agree</td>
-<td headers="Initial.prob." class="gt_row gt_right">0.00%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Disagree</td>
-<td headers="Initial.prob." class="gt_row gt_right">0.00%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| Interaction | Initial.prob. |
+|:------------|--------------:|
+| Solution    |         0.560 |
+| Moderation  |         0.266 |
+| Reasoning   |         0.174 |
+| Agree       |         0.000 |
+| Disagree    |         0.000 |
 
 Transition probabilities
 
 ``` r
 tna_model$transits[[1]] |> data.frame() |> 
   rownames_to_column("From\\To") |> 
-  gt() |> fmt_percent()
+  kable()
 ```
 
-<div id="snozeiejys" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="From\To">From\To</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Agree">Agree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Disagree">Disagree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Moderation">Moderation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reasoning">Reasoning</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Solution">Solution</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="From\To" class="gt_row gt_left">Agree</td>
-<td headers="Agree" class="gt_row gt_right">28.83%</td>
-<td headers="Disagree" class="gt_row gt_right">0.81%</td>
-<td headers="Moderation" class="gt_row gt_right">11.90%</td>
-<td headers="Reasoning" class="gt_row gt_right">32.00%</td>
-<td headers="Solution" class="gt_row gt_right">26.46%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Disagree</td>
-<td headers="Agree" class="gt_row gt_right">12.09%</td>
-<td headers="Disagree" class="gt_row gt_right">6.59%</td>
-<td headers="Moderation" class="gt_row gt_right">4.40%</td>
-<td headers="Reasoning" class="gt_row gt_right">54.95%</td>
-<td headers="Solution" class="gt_row gt_right">21.98%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Moderation</td>
-<td headers="Agree" class="gt_row gt_right">20.78%</td>
-<td headers="Disagree" class="gt_row gt_right">0.42%</td>
-<td headers="Moderation" class="gt_row gt_right">14.68%</td>
-<td headers="Reasoning" class="gt_row gt_right">20.08%</td>
-<td headers="Solution" class="gt_row gt_right">44.04%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Reasoning</td>
-<td headers="Agree" class="gt_row gt_right">16.83%</td>
-<td headers="Disagree" class="gt_row gt_right">1.07%</td>
-<td headers="Moderation" class="gt_row gt_right">3.37%</td>
-<td headers="Reasoning" class="gt_row gt_right">53.99%</td>
-<td headers="Solution" class="gt_row gt_right">24.74%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Solution</td>
-<td headers="Agree" class="gt_row gt_right">19.48%</td>
-<td headers="Disagree" class="gt_row gt_right">0.92%</td>
-<td headers="Moderation" class="gt_row gt_right">5.59%</td>
-<td headers="Reasoning" class="gt_row gt_right">35.90%</td>
-<td headers="Solution" class="gt_row gt_right">38.11%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| From       |     Agree |  Disagree | Moderation | Reasoning |  Solution |
+|:-----------|----------:|----------:|-----------:|----------:|----------:|
+| Agree      | 0.2882727 | 0.0080878 |  0.1190064 | 0.3200462 | 0.2645869 |
+| Disagree   | 0.1208791 | 0.0659341 |  0.0439560 | 0.5494505 | 0.2197802 |
+| Moderation | 0.2077562 | 0.0041551 |  0.1468144 | 0.2008310 | 0.4404432 |
+| Reasoning  | 0.1683337 | 0.0107343 |  0.0336667 | 0.5398878 | 0.2473774 |
+| Solution   | 0.1948216 | 0.0091569 |  0.0558889 | 0.3590148 | 0.3811178 |
 
 Centrality measures
 
@@ -277,48 +216,13 @@ errorsx$z <- errorsx$Estimate/errorsx$Error
 errorsx$p <- (1 - pnorm(abs(errorsx$z), 0, 1)) * 2
 errorsx$cilow=errorsx$Estimate -  qnorm(0.975) * errorsx$Error
 errorsx$cihi=errorsx$Estimate +  qnorm(0.975) * errorsx$Error
-errorsx |>  gt() |>
-  fmt_number( decimals = 3)  
+errorsx |> kable()  
 ```
 
-<div id="qcionpvyrz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="variable">variable</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="cluster">cluster</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Estimate">Estimate</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Error">Error</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="z">z</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="p">p</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="cilow">cilow</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="cihi">cihi</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="variable" class="gt_row gt_left">team_performance</td>
-<td headers="cluster" class="gt_row gt_left">Debaters</td>
-<td headers="Estimate" class="gt_row gt_right">−0.794</td>
-<td headers="Error" class="gt_row gt_right">0.179</td>
-<td headers="z" class="gt_row gt_right">−4.434</td>
-<td headers="p" class="gt_row gt_right">0.000</td>
-<td headers="cilow" class="gt_row gt_right">−1.146</td>
-<td headers="cihi" class="gt_row gt_right">−0.443</td></tr>
-    <tr><td headers="variable" class="gt_row gt_left">team_performance</td>
-<td headers="cluster" class="gt_row gt_left">Regulated</td>
-<td headers="Estimate" class="gt_row gt_right">−1.072</td>
-<td headers="Error" class="gt_row gt_right">0.189</td>
-<td headers="z" class="gt_row gt_right">−5.664</td>
-<td headers="p" class="gt_row gt_right">0.000</td>
-<td headers="cilow" class="gt_row gt_right">−1.443</td>
-<td headers="cihi" class="gt_row gt_right">−0.701</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| variable         | cluster   |   Estimate |     Error |         z |         p |     cilow |       cihi |
+|:-----------------|:----------|-----------:|----------:|----------:|----------:|----------:|-----------:|
+| team_performance | Debaters  | -0.7944944 | 0.1791831 | -4.433980 | 0.0000093 | -1.145687 | -0.4433020 |
+| team_performance | Regulated | -1.0717673 | 0.1892147 | -5.664292 | 0.0000000 | -1.442621 | -0.7009133 |
 
 Creating a new model with the cluster information
 
@@ -331,232 +235,57 @@ Initial probabilities
 ``` r
 data.frame(tna_model_clus$inits) |> 
   rownames_to_column("Interaction") |>  
-  gt() |> fmt_percent()
+  kable()
 ```
 
-<div id="fwsveunwkm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Interaction">Interaction</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Solvers">Solvers</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Regulated">Regulated</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Debaters">Debaters</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Interaction" class="gt_row gt_left">Agree</td>
-<td headers="Solvers" class="gt_row gt_right">0.00%</td>
-<td headers="Regulated" class="gt_row gt_right">0.00%</td>
-<td headers="Debaters" class="gt_row gt_right">0.00%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Disagree</td>
-<td headers="Solvers" class="gt_row gt_right">0.00%</td>
-<td headers="Regulated" class="gt_row gt_right">0.00%</td>
-<td headers="Debaters" class="gt_row gt_right">0.00%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Moderation</td>
-<td headers="Solvers" class="gt_row gt_right">10.70%</td>
-<td headers="Regulated" class="gt_row gt_right">35.16%</td>
-<td headers="Debaters" class="gt_row gt_right">44.35%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Reasoning</td>
-<td headers="Solvers" class="gt_row gt_right">15.48%</td>
-<td headers="Regulated" class="gt_row gt_right">12.57%</td>
-<td headers="Debaters" class="gt_row gt_right">24.53%</td></tr>
-    <tr><td headers="Interaction" class="gt_row gt_left">Solution</td>
-<td headers="Solvers" class="gt_row gt_right">73.82%</td>
-<td headers="Regulated" class="gt_row gt_right">52.27%</td>
-<td headers="Debaters" class="gt_row gt_right">31.11%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| Interaction |   Solvers | Regulated |  Debaters |
+|:------------|----------:|----------:|----------:|
+| Agree       | 0.0000000 | 0.0000000 | 0.0000000 |
+| Disagree    | 0.0000000 | 0.0000000 | 0.0000000 |
+| Moderation  | 0.1070365 | 0.3516261 | 0.4435101 |
+| Reasoning   | 0.1547647 | 0.1257223 | 0.2453459 |
+| Solution    | 0.7381988 | 0.5226516 | 0.3111440 |
 
 Transition probabilities
 
 ``` r
 tna_model_clus$transits[[1]] |> data.frame() |> 
-  rownames_to_column("From\\To") |> gt() |>
-  tab_header(title = names(tna_model_clus$transits)[1]) |>
-  fmt_percent()
+  rownames_to_column("From\\To") |> kable()
 ```
 
-<div id="vwjglrfuyt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Solvers</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="From\To">From\To</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Agree">Agree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Disagree">Disagree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Moderation">Moderation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reasoning">Reasoning</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Solution">Solution</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="From\To" class="gt_row gt_left">Agree</td>
-<td headers="Agree" class="gt_row gt_right">33.31%</td>
-<td headers="Disagree" class="gt_row gt_right">0.54%</td>
-<td headers="Moderation" class="gt_row gt_right">14.66%</td>
-<td headers="Reasoning" class="gt_row gt_right">26.25%</td>
-<td headers="Solution" class="gt_row gt_right">25.24%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Disagree</td>
-<td headers="Agree" class="gt_row gt_right">17.40%</td>
-<td headers="Disagree" class="gt_row gt_right">5.16%</td>
-<td headers="Moderation" class="gt_row gt_right">0.00%</td>
-<td headers="Reasoning" class="gt_row gt_right">40.68%</td>
-<td headers="Solution" class="gt_row gt_right">36.76%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Moderation</td>
-<td headers="Agree" class="gt_row gt_right">38.73%</td>
-<td headers="Disagree" class="gt_row gt_right">0.00%</td>
-<td headers="Moderation" class="gt_row gt_right">15.13%</td>
-<td headers="Reasoning" class="gt_row gt_right">14.88%</td>
-<td headers="Solution" class="gt_row gt_right">31.27%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Reasoning</td>
-<td headers="Agree" class="gt_row gt_right">18.69%</td>
-<td headers="Disagree" class="gt_row gt_right">0.82%</td>
-<td headers="Moderation" class="gt_row gt_right">2.38%</td>
-<td headers="Reasoning" class="gt_row gt_right">52.54%</td>
-<td headers="Solution" class="gt_row gt_right">25.57%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Solution</td>
-<td headers="Agree" class="gt_row gt_right">21.40%</td>
-<td headers="Disagree" class="gt_row gt_right">0.84%</td>
-<td headers="Moderation" class="gt_row gt_right">7.13%</td>
-<td headers="Reasoning" class="gt_row gt_right">31.70%</td>
-<td headers="Solution" class="gt_row gt_right">38.93%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| From       |     Agree |  Disagree | Moderation | Reasoning |  Solution |
+|:-----------|----------:|----------:|-----------:|----------:|----------:|
+| Agree      | 0.3330973 | 0.0053901 |  0.1465906 | 0.2625205 | 0.2524016 |
+| Disagree   | 0.1739650 | 0.0516213 |  0.0000000 | 0.4067892 | 0.3676245 |
+| Moderation | 0.3872613 | 0.0000000 |  0.1512532 | 0.1487654 | 0.3127201 |
+| Reasoning  | 0.1868743 | 0.0082033 |  0.0238354 | 0.5254289 | 0.2556581 |
+| Solution   | 0.2140167 | 0.0083689 |  0.0713205 | 0.3169894 | 0.3893045 |
 
 ``` r
 tna_model_clus$transits[[2]] |> data.frame() |> 
-  rownames_to_column("From\\To") |> gt() |>
-  tab_header(title = names(tna_model_clus$transits)[2]) |>
-  fmt_percent()
+  rownames_to_column("From\\To") |> kable()
 ```
 
-<div id="ggmzkromrl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Regulated</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="From\To">From\To</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Agree">Agree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Disagree">Disagree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Moderation">Moderation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reasoning">Reasoning</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Solution">Solution</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="From\To" class="gt_row gt_left">Agree</td>
-<td headers="Agree" class="gt_row gt_right">8.49%</td>
-<td headers="Disagree" class="gt_row gt_right">0.00%</td>
-<td headers="Moderation" class="gt_row gt_right">3.79%</td>
-<td headers="Reasoning" class="gt_row gt_right">52.62%</td>
-<td headers="Solution" class="gt_row gt_right">35.10%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Disagree</td>
-<td headers="Agree" class="gt_row gt_right">10.51%</td>
-<td headers="Disagree" class="gt_row gt_right">5.73%</td>
-<td headers="Moderation" class="gt_row gt_right">0.00%</td>
-<td headers="Reasoning" class="gt_row gt_right">58.66%</td>
-<td headers="Solution" class="gt_row gt_right">25.10%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Moderation</td>
-<td headers="Agree" class="gt_row gt_right">1.27%</td>
-<td headers="Disagree" class="gt_row gt_right">1.26%</td>
-<td headers="Moderation" class="gt_row gt_right">8.08%</td>
-<td headers="Reasoning" class="gt_row gt_right">23.74%</td>
-<td headers="Solution" class="gt_row gt_right">65.65%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Reasoning</td>
-<td headers="Agree" class="gt_row gt_right">11.06%</td>
-<td headers="Disagree" class="gt_row gt_right">1.36%</td>
-<td headers="Moderation" class="gt_row gt_right">1.46%</td>
-<td headers="Reasoning" class="gt_row gt_right">63.92%</td>
-<td headers="Solution" class="gt_row gt_right">22.21%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Solution</td>
-<td headers="Agree" class="gt_row gt_right">12.40%</td>
-<td headers="Disagree" class="gt_row gt_right">1.48%</td>
-<td headers="Moderation" class="gt_row gt_right">4.32%</td>
-<td headers="Reasoning" class="gt_row gt_right">42.85%</td>
-<td headers="Solution" class="gt_row gt_right">38.95%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| From       |     Agree |  Disagree | Moderation | Reasoning |  Solution |
+|:-----------|----------:|----------:|-----------:|----------:|----------:|
+| Agree      | 0.0848807 | 0.0000000 |  0.0378919 | 0.5262225 | 0.3510048 |
+| Disagree   | 0.1051044 | 0.0573183 |  0.0000000 | 0.5866010 | 0.2509763 |
+| Moderation | 0.0126669 | 0.0126024 |  0.0808113 | 0.2373875 | 0.6565319 |
+| Reasoning  | 0.1105501 | 0.0135863 |  0.0146049 | 0.6391984 | 0.2220604 |
+| Solution   | 0.1239837 | 0.0148440 |  0.0431694 | 0.4284747 | 0.3895282 |
 
 ``` r
 tna_model_clus$transits[[3]] |> data.frame() |> 
-  rownames_to_column("From\\To") |> gt() |>
-  tab_header(title = names(tna_model_clus$transits)[3]) |>
-  fmt_percent()
+  rownames_to_column("From\\To") |> kable()
 ```
 
-<div id="fiotwgjyav" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Debaters</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="From\To">From\To</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Agree">Agree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Disagree">Disagree</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Moderation">Moderation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Reasoning">Reasoning</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Solution">Solution</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="From\To" class="gt_row gt_left">Agree</td>
-<td headers="Agree" class="gt_row gt_right">31.61%</td>
-<td headers="Disagree" class="gt_row gt_right">1.68%</td>
-<td headers="Moderation" class="gt_row gt_right">11.35%</td>
-<td headers="Reasoning" class="gt_row gt_right">31.25%</td>
-<td headers="Solution" class="gt_row gt_right">24.10%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Disagree</td>
-<td headers="Agree" class="gt_row gt_right">7.84%</td>
-<td headers="Disagree" class="gt_row gt_right">9.48%</td>
-<td headers="Moderation" class="gt_row gt_right">15.61%</td>
-<td headers="Reasoning" class="gt_row gt_right">67.07%</td>
-<td headers="Solution" class="gt_row gt_right">0.00%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Moderation</td>
-<td headers="Agree" class="gt_row gt_right">7.73%</td>
-<td headers="Disagree" class="gt_row gt_right">0.55%</td>
-<td headers="Moderation" class="gt_row gt_right">17.00%</td>
-<td headers="Reasoning" class="gt_row gt_right">24.73%</td>
-<td headers="Solution" class="gt_row gt_right">49.98%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Reasoning</td>
-<td headers="Agree" class="gt_row gt_right">22.88%</td>
-<td headers="Disagree" class="gt_row gt_right">1.05%</td>
-<td headers="Moderation" class="gt_row gt_right">8.07%</td>
-<td headers="Reasoning" class="gt_row gt_right">40.65%</td>
-<td headers="Solution" class="gt_row gt_right">27.36%</td></tr>
-    <tr><td headers="From\To" class="gt_row gt_left">Solution</td>
-<td headers="Agree" class="gt_row gt_right">23.70%</td>
-<td headers="Disagree" class="gt_row gt_right">0.45%</td>
-<td headers="Moderation" class="gt_row gt_right">4.26%</td>
-<td headers="Reasoning" class="gt_row gt_right">35.81%</td>
-<td headers="Solution" class="gt_row gt_right">35.79%</td></tr>
-  </tbody>
-  
-  
-</table>
-</div>
+| From       |     Agree |  Disagree | Moderation | Reasoning |  Solution |
+|:-----------|----------:|----------:|-----------:|----------:|----------:|
+| Agree      | 0.3161281 | 0.0168447 |  0.1135354 | 0.3124509 | 0.2410410 |
+| Disagree   | 0.0783536 | 0.0947788 |  0.1561492 | 0.6707184 | 0.0000000 |
+| Moderation | 0.0773280 | 0.0054750 |  0.1700369 | 0.2473256 | 0.4998345 |
+| Reasoning  | 0.2287844 | 0.0104913 |  0.0806620 | 0.4064681 | 0.2735942 |
+| Solution   | 0.2369794 | 0.0044583 |  0.0425548 | 0.3581436 | 0.3578639 |
 
 Plotting the cluster transitions
 
@@ -641,7 +370,7 @@ plot(high_model, title = "High achievers")
 <img src="AppendixFinal_files/figure-commonmark/unnamed-chunk-24-1.png"
 data-fig-align="center" />
 
-Comparing high vs. low achievers’ transitions
+Comparing high vs. low achievers’ transitions
 
 ``` r
 layout(t(1:2))
