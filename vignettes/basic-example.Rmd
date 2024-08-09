@@ -1,0 +1,44 @@
+---
+title: "Basic example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{basic-example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.width = 10,
+  fig.height = 6,
+  out.width = "100%",
+  dpi = 300,
+  comment = "#>"
+)
+```
+
+```{r}
+library("tna")
+```
+
+```{r}
+data("engagement", package = "tna")
+```
+
+```{r}
+tna_model <- build_tna(engagement)
+```
+
+```{r}
+plot(tna_model)
+```
+
+```{r}
+cm <- centralities(tna_model)
+cm
+```
+
+```{r, fig.width=4, fig.height=2}
+plot(cm, ncol = 4, line_color = tna_model$colors, point_color = tna_model$colors)
+```
